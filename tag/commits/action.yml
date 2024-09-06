@@ -1,0 +1,30 @@
+name: 'Tag commits'
+description: 'Tag commits'
+inputs:
+  commit-from:
+    description: 'The commit to start search from'
+    required: true
+  commit-format:
+    description: 'The commit format list'
+    required: true
+    default: "%h %s - %ae"
+outputs:
+  commits:
+    description: "List of commits"
+    value: ${{ steps.get-commits.outputs.commits}}
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
+    - name: Get commits
+      id: get-commits 
+      run: echo "commits=$(echo get-commits.sh $FROM $FORMAT)" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        FROM: ${{ inputs.commit-from }}
+        FORMAT: ${{ outputs.commit-format }}

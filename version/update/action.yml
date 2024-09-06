@@ -1,0 +1,25 @@
+name: 'Update version'
+description: 'Update version'
+inputs:
+  commit-message:
+    description: 'Update message'
+    default: 'chore(build): bump version to %s'
+  current-version:
+    description: 'Current version'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
+    - name: Update version
+      id: update version
+      run: update-version.sh $CURRENT_VERSION $COMMIT_MESSAGE
+      shell: bash
+      env:
+        CURRENT_VERSION: ${{ inputs.current-version }}
+        COMMIT_MESSAGE: ${{ inputs.commit-message }}

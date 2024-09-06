@@ -1,0 +1,38 @@
+name: 'Computed version'
+description: 'Computed version'
+inputs:
+  current-version:
+    description: 'Current version'
+    required: true
+  version-from:
+    type: choice
+    description: 'The type of the version'
+    required: true
+    default: 'git'
+    options:
+      - git
+      - version
+  commit-list:
+    description: 'List of commits to compute'
+    required: false
+outputs:
+  computed-version:
+    description: "Computed version"
+    value: ${{ steps.get-computed-version.outputs.computed-version }}
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
+    - name: Get computed version
+      id: get-computed-version 
+      run: echo "computed-version=$(echo get-computed-version.sh $VERSION_FROM $CURRENT_VERSION $COMMIT_LIST)" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        CURRENT_VERSION: ${{ inputs.version }}
+        VERSION_FROM: ${{ inputs.version-from }}
+        COMMIT_LIST: ${{ inputs.commit-list }}

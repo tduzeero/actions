@@ -1,0 +1,35 @@
+name: 'Current version'
+description: 'Current version'
+inputs:
+  current-version:
+    description: 'Current version. Used if version-from is "git" and didn't found any tag or when version-from is "current" as value'
+    required: true
+    default: 'v0.0.1'
+  version-from:
+    type: choice
+    description: 'The type of the version'
+    required: true
+    default: 'git'
+    options:
+      - git
+      - current
+outputs:
+  current-version:
+    description: "Current version"
+    value: ${{ steps.get-current-version.outputs.current-version }}
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
+    - name: Get current version
+      id: get-current-version 
+      run: echo "current-version=$(echo get-current-version.sh $VERSION_FROM $CURRENT_VERSION)" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        CURRENT_VERSION: ${{ inputs.current-version }}
+        VERSION_FROM: ${{ inputs.version-from }}

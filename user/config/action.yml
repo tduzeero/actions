@@ -1,0 +1,26 @@
+name: 'User config'
+description: 'User config'
+inputs:
+  user-from:
+    type: choice
+    description: 'The user owner'
+    required: true
+    default: 'github-bot'
+    options:
+      - 'github-bot'
+      - 'commit-head'
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
+    - name: Config git name and email
+      run: set-config-user.sh $USER_FROM
+      shell: bash
+      env:
+        USER_FROM: ${{ inputs.user-from }}
+
