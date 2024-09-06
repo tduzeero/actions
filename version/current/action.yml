@@ -2,7 +2,7 @@ name: 'Current version'
 description: 'Current version'
 inputs:
   current-version:
-    description: 'Current version. Used if version-from is "git" and didn't found any tag or when version-from is "current" as value'
+    description: 'Current version. Initial value for version-from[git | current]'
     required: true
     default: 'v0.0.1'
   version-from:
