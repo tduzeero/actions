@@ -27,4 +27,4 @@ runs:
       shell: bash
       env:
         FROM: ${{ inputs.commit-from }}
-        FORMAT: ${{ outputs.commit-format }}
+        FORMAT: ${{ inputs.commit-format }}
