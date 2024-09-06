@@ -1,5 +1,5 @@
-name: 'Tag commits'
-description: 'Tag commits'
+name: 'Tag commit'
+description: 'Tag commit'
 inputs:
   commit-from:
     description: 'The commit to start search from'
@@ -9,9 +9,9 @@ inputs:
     required: true
     default: "%h %s - %ae"
 outputs:
-  commits:
+  commit-list:
     description: "List of commits"
-    value: ${{ steps.get-commits.outputs.commits}}
+    value: ${{ steps.commit-list.outputs.commit-list}}
 runs:
   using: "composite"
   steps:
@@ -21,9 +21,9 @@ runs:
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
-    - name: Get commits
-      id: get-commits 
-      run: echo "commits=$(echo get-commits.sh $FROM $FORMAT)" >> $GITHUB_OUTPUT
+    - name: Get commit list
+      id: commit-list
+      run: echo "commit-list=$(echo get-commits.sh $FROM $FORMAT)" >> $GITHUB_OUTPUT
       shell: bash
       env:
         FROM: ${{ inputs.commit-from }}
