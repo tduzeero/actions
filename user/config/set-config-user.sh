@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 USER_FROM=$1
 USER_NAME="github-actions[bot]"

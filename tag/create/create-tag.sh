@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 CURRENT_TAG="v$1"
 COMMIT_LIST="v$3"

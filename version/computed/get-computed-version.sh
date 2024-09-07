@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 VERSION_FROM=$1
 CURRENT_VERSION=$2
