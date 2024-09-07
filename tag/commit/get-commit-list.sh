@@ -7,11 +7,13 @@ COMMIT_LIST=$(git log $COMMIT_FROM..HEAD --format="${COMMIT_FORMAT}" --reverse)
 
 echo "COMMIT_FORMAT: ${COMMIT_FORMAT}" >&2
 
+SEP_COMMIT_LIST=''
 OLDIFS="$IFS"
 IFS=$'\n'
 for COMMIT in $COMMIT_LIST; do
   echo "COMMIT: ${COMMIT}" >&2
+  SEP_COMMIT_LIST="${SEP_COMMIT_LIST}:::${COMMIT}"
 done
 IFS="$OLDIFS"
 
-echo "${COMMIT_LIST}"
+echo "${SEP_COMMIT_LIST}"

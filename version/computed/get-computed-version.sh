@@ -13,7 +13,7 @@ if [[ $VERSION_FROM == "git" && $COMMIT_LIST != "" ]]; then
   PATCH=$(echo $COMPUTED_VERSION_NUMBER | cut -d'.' -f 3)
 
   OLDIFS="$IFS"
-  IFS=$'\n'
+  IFS=$':::'
   for COMMIT in $COMMIT_LIST; do
     COMMIT_SHA=${COMMIT:0:7}
     DESCRIPTION=$(git show -s --format=%B $COMMIT_SHA)
