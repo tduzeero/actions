@@ -28,7 +28,7 @@ runs:
 
     - name: Get current version
       id: get-current-version 
-      run: echo "current-version=$(echo get-current-version.sh $VERSION_FROM $CURRENT_VERSION)" >> $GITHUB_OUTPUT
+      run: echo "current-version=$(get-current-version.sh $VERSION_FROM $CURRENT_VERSION)" >> $GITHUB_OUTPUT
       shell: bash
       env:
         CURRENT_VERSION: ${{ inputs.current-version }}
