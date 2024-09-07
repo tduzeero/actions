@@ -8,7 +8,7 @@ inputs:
     type: choice
     description: 'The type of the version'
     required: true
-    default: 'git'
+    default: git
     options:
       - git
       - version
@@ -20,7 +20,7 @@ inputs:
     required: true
     default: ':::'
 outputs:
-  computed-version:
+  version:
     description: "Computed version"
     value: ${{ steps.get-computed-version.outputs.computed-version }}
 runs:

@@ -4,8 +4,8 @@ inputs:
   commit-message:
     description: 'Update message'
     default: 'chore(build): bump version to %s'
-  current-version:
-    description: 'Current version'
+  new-version:
+    description: 'New version'
     required: true
 runs:
   using: "composite"
@@ -17,8 +17,8 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: Update version
-      run: update-version.sh "$CURRENT_VERSION" "$COMMIT_MESSAGE"
+      run: update-version.sh "$NEW_VERSION" "$COMMIT_MESSAGE"
       shell: bash
       env:
-        CURRENT_VERSION: ${{ inputs.current-version }}
+        NEW_VERSION: ${{ inputs.new-version }}
         COMMIT_MESSAGE: ${{ inputs.commit-message }}

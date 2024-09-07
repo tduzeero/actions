@@ -1,8 +1,8 @@
 name: 'Tag commit'
 description: 'Tag commit'
 inputs:
-  commit-from:
-    description: 'The commit to start search from'
+  current-version:
+    description: 'The version to start search from'
     required: true
   commit-format:
     description: 'The commit format list'
@@ -13,7 +13,7 @@ inputs:
     required: true
     default: ':::'
 outputs:
-  commit-list:
+  list:
     description: "List of commits"
     value: ${{ steps.commit-list.outputs.commit-list }}
 runs:
@@ -27,9 +27,9 @@ runs:
 
     - name: Get commit list
       id: commit-list
-      run: echo "commit-list=$(get-commit-list.sh "$FROM" "$FORMAT" "$COMMIT_LIST_SEP")" >> $GITHUB_OUTPUT
+      run: echo "commit-list=$(get-commit-list.sh "$CURRENT_VERSION" "$FORMAT" "$COMMIT_LIST_SEP")" >> $GITHUB_OUTPUT
       shell: bash
       env:
-        FROM: ${{ inputs.commit-from }}
         FORMAT: ${{ inputs.commit-format }}
+        CURRENT_VERSION: ${{ inputs.current-version }}
         COMMIT_LIST_SEP: ${{ inputs.commit-list-sep }}

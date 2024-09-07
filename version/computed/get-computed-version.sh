@@ -7,8 +7,6 @@ COMMIT_LIST_SEP=$4
 
 if [[ $VERSION_FROM == "git" && $COMMIT_LIST != "" ]]; then
 
-  COMPUTED_VERSION_NUMBER=$(echo $COMPUTED_VERSION | cut -d'v' -f 2)
-
   MAJOR=$(echo $COMPUTED_VERSION_NUMBER | cut -d'.' -f 1)
   MINOR=$(echo $COMPUTED_VERSION_NUMBER | cut -d'.' -f 2)
   PATCH=$(echo $COMPUTED_VERSION_NUMBER | cut -d'.' -f 3)
