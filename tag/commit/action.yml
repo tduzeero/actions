@@ -8,6 +8,10 @@ inputs:
     description: 'The commit format list'
     required: true
     default: "%h %s - %ae"
+  commit-list-sep:
+    description: 'The list separator'
+    required: true
+    default: ':::'
 outputs:
   commit-list:
     description: "List of commits"
@@ -23,8 +27,9 @@ runs:
 
     - name: Get commit list
       id: commit-list
-      run: echo "commit-list=$(get-commit-list.sh "$FROM" "$FORMAT")" >> $GITHUB_OUTPUT
+      run: echo "commit-list=$(get-commit-list.sh "$FROM" "$FORMAT" "$COMMIT_LIST_SEP")" >> $GITHUB_OUTPUT
       shell: bash
       env:
         FROM: ${{ inputs.commit-from }}
         FORMAT: ${{ inputs.commit-format }}
+        COMMIT_LIST_SEP: ${{ inputs.commit-list-sep }}

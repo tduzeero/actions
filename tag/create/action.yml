@@ -10,6 +10,10 @@ inputs:
   commit-list:
     description: 'List of commits to compute'
     required: false
+  commit-list-sep:
+    description: 'The list separator'
+    required: true
+    default: ':::'
 runs:
   using: "composite"
   steps:
@@ -20,10 +24,11 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: Create the tag
-      run: create-tag.sh $CURRENT_VERSION $TAG_MESSAGE $COMMIT_LIST
+      run: create-tag.sh "$CURRENT_VERSION" "$TAG_MESSAGE" "$COMMIT_LIST" "$COMMIT_LIST_SEP"
       shell: bash
       env:
         TAG_MESSAGE: ${{ inputs.tag-message }}
         COMMIT_LIST: ${{ inputs.commit-list }}
+        COMMIT_LIST_SEP: ${{ inputs.commit-list-sep }}
         CURRENT_VERSION: ${{ inputs.current-version }}
 

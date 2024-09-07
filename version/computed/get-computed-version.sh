@@ -3,6 +3,7 @@
 VERSION_FROM=$1
 COMPUTED_VERSION=$2
 COMMIT_LIST=$3
+COMMIT_LIST_SEP=$4
 
 if [[ $VERSION_FROM == "git" && $COMMIT_LIST != "" ]]; then
 
@@ -13,19 +14,23 @@ if [[ $VERSION_FROM == "git" && $COMMIT_LIST != "" ]]; then
   PATCH=$(echo $COMPUTED_VERSION_NUMBER | cut -d'.' -f 3)
 
   OLDIFS="$IFS"
-  IFS=$':::'
-  for COMMIT in $COMMIT_LIST; do
+  IFS=$'\n'
+  for COMMIT in ${COMMIT_LIST//$COMMIT_LIST_SEP/$'\n'}; do
     COMMIT_SHA=${COMMIT:0:7}
-    DESCRIPTION=$(git show -s --format=%B $COMMIT_SHA)
+    DESCRIPTION=''
 
-    if [[ $COMMIT == *"!:"* || $DESCRIPTION == *"BREAKING CHANGE:"* ]]; then
+    if [[ $(git rev-parse --symbolic-full-name $sha) = refs/* ]]; then
+      DESCRIPTION=$(git show -s --format=%B $COMMIT_SHA)
+    fi
+
+    if [[ "$COMMIT" == *"!:"* || "$DESCRIPTION" == *"BREAKING CHANGE:"* ]]; then
       MAJOR=$(($MAJOR + 1))
       MINOR=0
       PATCH=0
       continue
     fi
 
-    if [[ $COMMIT == *"feat:"* ]]; then
+    if [[ "$COMMIT" == *"feat:"* ]]; then
       MINOR=$(($MINOR + 1))
       PATCH=0
       continue
