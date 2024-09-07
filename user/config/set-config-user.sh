@@ -9,9 +9,9 @@ if [[ "$USER_FROM" == "commit-head" ]]; then
   USER_EMAIL=$(git show -s --format='%ae')
 fi
 
-echo "USER_FROM=${USER_FROM}" >&2
-echo "USER_NAME=${USER_NAME}" >&2
-echo "USER_EMAIL=${USER_EMAIL}" >&2
+echo "USER_FROM: ${USER_FROM}" >&2
+echo "USER_NAME: ${USER_NAME}" >&2
+echo "USER_EMAIL: ${USER_EMAIL}" >&2
 
 git config user.name $USER_NAME
 git config user.email $USER_EMAIL
