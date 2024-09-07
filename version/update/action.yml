@@ -17,7 +17,7 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: Update version
-      run: update-version.sh $CURRENT_VERSION $COMMIT_MESSAGE
+      run: update-version.sh "$CURRENT_VERSION" "$COMMIT_MESSAGE"
       shell: bash
       env:
         CURRENT_VERSION: ${{ inputs.current-version }}

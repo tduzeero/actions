@@ -30,7 +30,7 @@ runs:
 
     - name: Get computed version
       id: get-computed-version 
-      run: echo "computed-version=$(get-computed-version.sh $VERSION_FROM $CURRENT_VERSION $COMMIT_LIST)" >> $GITHUB_OUTPUT
+      run: echo "computed-version=$(get-computed-version.sh "$VERSION_FROM" "$CURRENT_VERSION" "$COMMIT_LIST")" >> $GITHUB_OUTPUT
       shell: bash
       env:
         CURRENT_VERSION: ${{ inputs.version }}
