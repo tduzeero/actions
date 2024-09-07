@@ -23,7 +23,7 @@ runs:
 
     - name: Get commit list
       id: commit-list
-      run: echo "commit-list=$(get-commit-list.sh $FROM $FORMAT)" >> $GITHUB_OUTPUT
+      run: echo "commit-list=$(get-commit-list.sh "$FROM" "$FORMAT")" >> $GITHUB_OUTPUT
       shell: bash
       env:
         FROM: ${{ inputs.commit-from }}
