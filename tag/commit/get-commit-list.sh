@@ -3,6 +3,8 @@
 COMMIT_FROM=$1
 COMMIT_FORMAT=$2
 
-COMMITS_FROM_CURRENT_TAG=$(git log $COMMIT_FROM..HEAD --format="${COMMIT_FORMAT}" --reverse)
+COMMIT_LIST=$(git log $COMMIT_FROM..HEAD --format="${COMMIT_FORMAT}" --reverse)
 
-echo "${COMMITS_FROM_CURRENT_TAG}"
+echo "COMMIT_LIST=${COMMIT_LIST}" >&2
+
+echo "${COMMIT_LIST}"

@@ -1,20 +1,20 @@
 #!/bin/bash
 
 VERSION_FROM=$1
-CURRENT_VERSION=$2
-COMMITS=$3
+COMPUTED_VERSION=$2
+COMMIT_LIST=$3
 
-if [[ $VERSION_FROM == "git" && $COMMITS != "" ]]; then
+if [[ $VERSION_FROM == "git" && $COMMIT_LIST != "" ]]; then
 
-  CURRENT_VERSION_NUMBER=$(echo $CURRENT_VERSION | cut -d'v' -f 2)
+  COMPUTED_VERSION_NUMBER=$(echo $COMPUTED_VERSION | cut -d'v' -f 2)
 
-  MAJOR=$(echo $CURRENT_VERSION_NUMBER | cut -d'.' -f 1)
-  MINOR=$(echo $CURRENT_VERSION_NUMBER | cut -d'.' -f 2)
-  PATCH=$(echo $CURRENT_VERSION_NUMBER | cut -d'.' -f 3)
+  MAJOR=$(echo $COMPUTED_VERSION_NUMBER | cut -d'.' -f 1)
+  MINOR=$(echo $COMPUTED_VERSION_NUMBER | cut -d'.' -f 2)
+  PATCH=$(echo $COMPUTED_VERSION_NUMBER | cut -d'.' -f 3)
 
   OLDIFS="$IFS"
   IFS=$'\n'
-  for COMMIT in $COMMITS; do
+  for COMMIT in $COMMIT_LIST; do
     COMMIT_SHA=${COMMIT:0:7}
     DESCRIPTION=$(git show -s --format=%B $COMMIT_SHA)
 
@@ -36,8 +36,10 @@ if [[ $VERSION_FROM == "git" && $COMMITS != "" ]]; then
   done
   IFS="$OLDIFS"
 
-  CURRENT_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+  COMPUTED_VERSION="${MAJOR}.${MINOR}.${PATCH}"
 
 fi
 
-echo "${CURRENT_VERSION}"
+echo "COMPUTED_VERSION: ${COMPUTED_VERSION}" >&2
+
+echo "${COMPUTED_VERSION}"

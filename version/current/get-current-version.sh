@@ -10,4 +10,6 @@ if [[ $VERSION_FROM == "git" ]]; then
   fi
 fi
 
+echo "CURRENT_VERSION: ${CURRENT_VERSION}" >&2
+
 echo "${CURRENT_VERSION}"

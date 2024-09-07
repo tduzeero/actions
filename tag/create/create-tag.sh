@@ -1,13 +1,12 @@
 #!/bin/bash
 
-CURRENT_TAG="v$1"
+CURRENT_VERSION="v$1"
 COMMIT_LIST="v$3"
-MESSAGE=$(prinf $2 "${CURRENT_TAG}" "$COMMIT_LIST")
+COMMIT_MESSAGE=$(prinf $2 "${CURRENT_VERSION}" "$COMMIT_LIST")
 
-echo "Tag version: ${CURRENT_TAG}" >&2
-echo "Commits from last tag: ${COMMIT_LIST}" >&2
+echo "COMMIT_MESSAGE: ${CURRENT_VERSION}" >&2
 
 exit 1
 
-git tag -a "${CURRENT_TAG}" -m "${MESSAGE}"
-git push origin tag "${CURRENT_TAG}"
+git tag -a "${CURRENT_VERSION}" -m "${MESSAGE}"
+git push origin tag "${CURRENT_VERSION}"
