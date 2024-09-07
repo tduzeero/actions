@@ -1,7 +1,11 @@
 #!/bin/bash
 
 VERSION="$1"
-MESSAGE=$(prinf $2 "${VERSION}")
+MESSAGE=$(printf $2 "${VERSION}")
+
+echo "MESSAGE=${MESSAGE}"
+
+exit 1
 
 sed -i '/"version": *"[0-9].[0-9].[0-9]"/ s/"[0-9].[0-9].[0-9]"/"'$VERSION'"/' package.json
 
