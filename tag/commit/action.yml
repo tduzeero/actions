@@ -11,7 +11,7 @@ inputs:
 outputs:
   commit-list:
     description: "List of commits"
-    value: ${{ steps.commit-list.outputs.commit-list}}
+    value: ${{ steps.commit-list.outputs.commit-list }}
 runs:
   using: "composite"
   steps:
