@@ -9,7 +9,7 @@ COMMIT_LIST=$(git log $COMMIT_FROM..HEAD --format="${COMMIT_FORMAT}" --reverse)
 echo "COMMIT_FORMAT: ${COMMIT_FORMAT}" >&2
 
 OLDIFS="$IFS"
-local IFS=$'\n'
+IFS=$'\n'
 for COMMIT in ${COMMIT_LIST}; do
   echo "COMMIT: ${COMMIT}" >&2
 done
