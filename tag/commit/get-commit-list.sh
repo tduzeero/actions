@@ -7,6 +7,7 @@ COMMIT_LIST_SEP=$3
 COMMIT_LIST=$(git log $COMMIT_FROM..HEAD --format="${COMMIT_FORMAT}" --reverse)
 
 echo "COMMIT_FORMAT: ${COMMIT_FORMAT}" >&2
+echo "COMMIT_LIST_SEP: ${COMMIT_LIST_SEP}" >&2
 
 OLDIFS="$IFS"
 IFS=$'\n'

@@ -37,7 +37,7 @@ runs:
       run: echo "computed-version=$(get-computed-version.sh "$VERSION_FROM" "$CURRENT_VERSION" "$COMMIT_LIST" "$COMMIT_LIST_SEP")" >> $GITHUB_OUTPUT
       shell: bash
       env:
-        CURRENT_VERSION: ${{ inputs.version }}
+        CURRENT_VERSION: ${{ inputs.current-version }}
         VERSION_FROM: ${{ inputs.version-from }}
         COMMIT_LIST: ${{ inputs.commit-list }}
         COMMIT_LIST_SEP: ${{ inputs.commit-list-sep }}
