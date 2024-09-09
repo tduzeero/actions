@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NEW_VERSION="$1"
-COMMIT_MESSAGE=$(printf $2 "${NEW_VERSION}")
+COMMIT_MESSAGE=$(printf "$2" "${NEW_VERSION}")
 
 echo "COMMIT_MESSAGE: ${COMMIT_MESSAGE}" >&2
 
