@@ -31,8 +31,8 @@ runs:
       id: app-token
       if: ${{ inputs.user-from == 'app-bot' }}
       with:
-        app-id: ${{ vars.APP_ID }}
-        private-key: ${{ secrets.PRIVATE_KEY }}
+        app-id: ${{ inputs.APP_ID }}
+        private-key: ${{ inputs.PRIVATE_KEY }}
     
     - name: Get git
       id: get-user-id
