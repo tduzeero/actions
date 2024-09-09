@@ -5,6 +5,10 @@ inputs:
     type: string
     description: 'Access token'
     required: true
+  user-name: 
+    type: string
+    description: 'User name'
+    required: true
 outputs:
   id:
     description: "User id"
@@ -20,7 +24,8 @@ runs:
     
     - name: Get user data
       id: get-user-data
-      run: echo "id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+      run: echo "id=$(gh api "/users/${USER_NAME}" --jq .id)" >> "$GITHUB_OUTPUT"
       shell: bash
       env:
+        USER_NAME: ${{ inputs.user-name }}
         GH_TOKEN: ${{ inputs.token }}
