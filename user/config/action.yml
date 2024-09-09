@@ -9,6 +9,13 @@ inputs:
     options:
       - 'github-bot'
       - 'commit-head'
+      - 'custom'
+  user-name: 
+    type: string
+    description: 'The user name'
+  user-email: 
+    type: string
+    description: 'The user email'
 runs:
   using: "composite"
   steps:
@@ -19,8 +26,10 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: Config git name and email
-      run: set-config-user.sh $USER_FROM
+      run: set-config-user.sh "$USER_FROM" "$USER_NAME" "$USER_EMAIL"
       shell: bash
       env:
         USER_FROM: ${{ inputs.user-from }}
+        USER_NAME: ${{ inputs.user-name }}
+        USER_EMAIL: ${{ inputs.user-email }}
 
