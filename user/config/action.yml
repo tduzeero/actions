@@ -7,15 +7,17 @@ inputs:
     required: true
     default: 'github-bot'
     options:
+      - 'app-bot'
       - 'github-bot'
       - 'commit-head'
-      - 'custom'
-  user-name: 
+  app-id: 
     type: string
-    description: 'The user name'
-  user-email: 
+    description: 'The app id'
+    required: ${{ inputs.user-from == 'app-bot' }}
+  private-key: 
     type: string
-    description: 'The user email'
+    description: 'The app private key'
+    required: ${{ inputs.user-from == 'app-bot' }}
 runs:
   using: "composite"
   steps:
@@ -25,11 +27,25 @@ runs:
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
+    - uses: actions/create-github-app-token@v1
+      id: app-token
+      if: ${{ inputs.user-from == 'app-bot' }}
+      with:
+        app-id: ${{ vars.APP_ID }}
+        private-key: ${{ secrets.PRIVATE_KEY }}
+    
+    - name: Get git
+      id: get-user-id
+      if: ${{ inputs.user-from == 'app-bot' }}
+      run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+      env:
+        GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
     - name: Config git name and email
-      run: set-config-user.sh "$USER_FROM" "$USER_NAME" "$USER_EMAIL"
+      run: set-config-user.sh "$USER_FROM" "$APP_SLUG" "$USER_ID"
       shell: bash
       env:
         USER_FROM: ${{ inputs.user-from }}
-        USER_NAME: ${{ inputs.user-name }}
-        USER_EMAIL: ${{ inputs.user-email }}
+        APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        USER_ID: ${{ steps.get-user-id.outputs.user-id }}
 
