@@ -1,0 +1,26 @@
+name: 'User data'
+description: 'User data'
+inputs:
+  token:
+    type: string
+    description: 'Access token'
+    required: true
+outputs:
+  id:
+    description: "User id"
+    value: ${{ steps.get-user-data.outputs.id }}
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+    
+    - name: Get user data
+      id: get-user-data
+      run: echo "id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}

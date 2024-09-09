@@ -10,4 +10,3 @@ sed -i '/"version": *"[0-9].[0-9].[0-9]"/ s/"[0-9].[0-9].[0-9]"/"'$NEW_VERSION'"
 git add .
 git commit -m "$COMMIT_MESSAGE"
 git push
-# gut push https://${APP_ID}:${APP_TOKEN}@github.com/user_or_org/repo.git
