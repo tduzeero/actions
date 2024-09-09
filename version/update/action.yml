@@ -3,7 +3,7 @@ description: 'Update version'
 inputs:
   commit-message:
     description: 'Update message'
-    default: 'chore(build): bump version to %s'
+    default: 'chore(build): bump version to v%s'
   new-version:
     description: 'New version'
     required: true

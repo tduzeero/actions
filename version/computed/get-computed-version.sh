@@ -5,11 +5,11 @@ COMPUTED_VERSION=$2
 COMMIT_LIST=$3
 COMMIT_LIST_SEP=$4
 
-if [[ $VERSION_FROM == "git" && $COMMIT_LIST != "" ]]; then
+MAJOR=$(echo $COMPUTED_VERSION | cut -d'.' -f 1)
+MINOR=$(echo $COMPUTED_VERSION | cut -d'.' -f 2)
+PATCH=$(echo $COMPUTED_VERSION | cut -d'.' -f 3)
 
-  MAJOR=$(echo $COMPUTED_VERSION | cut -d'.' -f 1)
-  MINOR=$(echo $COMPUTED_VERSION | cut -d'.' -f 2)
-  PATCH=$(echo $COMPUTED_VERSION | cut -d'.' -f 3)
+if [[ $VERSION_FROM == "git" && $COMMIT_LIST != "" ]]; then
 
   OLDIFS="$IFS"
   IFS=$'\n'
@@ -39,9 +39,13 @@ if [[ $VERSION_FROM == "git" && $COMMIT_LIST != "" ]]; then
   done
   IFS="$OLDIFS"
 
-  COMPUTED_VERSION="${MAJOR}.${MINOR}.${PATCH}"
-
 fi
+
+if [ $(git tag -l "${MAJOR}.${MINOR}.${PATCH}") ]; then
+  PATCH=$(($PATCH + 1))
+fi
+
+COMPUTED_VERSION="${MAJOR}.${MINOR}.${PATCH}"
 
 echo "COMPUTED_VERSION: ${COMPUTED_VERSION}" >&2
 
