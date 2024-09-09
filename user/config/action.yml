@@ -13,11 +13,11 @@ inputs:
   app-id: 
     type: string
     description: 'The app id'
-    required: ${{ inputs.user-from == 'app-bot' }}
+    required: inputs.user-from == 'app-bot'
   private-key: 
     type: string
     description: 'The app private key'
-    required: ${{ inputs.user-from == 'app-bot' }}
+    required: inputs.user-from == 'app-bot'
 runs:
   using: "composite"
   steps:
