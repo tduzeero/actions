@@ -5,8 +5,11 @@ COMMIT_LIST="ec66eb4 feat: update create-tag.yml - wxyzeero@gmail.com:::72f3edf 
 COMMIT_LIST_SEP=":::"
 TAG_MESSAGE='New version %s\n\n Log changes: \n\n%s'
 
-NEW_VERSION=$(bash version/computed/get-computed-version.sh "$VERSION_FROM" "$CURRENT_VERSION" "$COMMIT_LIST" "$COMMIT_LIST_SEP")
+# NEW_VERSION=$(bash version/computed/get-computed-version.sh "$VERSION_FROM" "$CURRENT_VERSION" "$COMMIT_LIST" "$COMMIT_LIST_SEP")
 
-COMMIT_MESSAGE=$(printf "${TAG_MESSAGE}" "${NEW_VERSION}" "${COMMIT_LIST//$COMMIT_LIST_SEP//$'\n'}")
+# COMMIT_MESSAGE=$(printf "${TAG_MESSAGE}" "${NEW_VERSION}" "${COMMIT_LIST//$COMMIT_LIST_SEP//$'\n'}")
 
-echo "COMMIT_MESSAGE: ${COMMIT_MESSAGE}" >&2
+# echo "COMMIT_MESSAGE: ${COMMIT_MESSAGE}" >&2
+
+LAST_VERSION=$(npm info @tduzeero/cdommon version --silent)
+echo $LAST_VERSION
