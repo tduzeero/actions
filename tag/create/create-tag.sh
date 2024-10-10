@@ -11,5 +11,5 @@ echo "COMMIT_MESSAGE: ${NEW_VERSION}" >&2
 git push origin :v${NEW_VERSION}
 git tag -d v${NEW_VERSION}
 
-git tag -a "v${NEW_VERSION}" -m "${MESSAGE}"
+git tag -a -m "${MESSAGE}" "v${NEW_VERSION}"
 git push origin tag "v${NEW_VERSION}"
