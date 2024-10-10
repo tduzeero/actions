@@ -3,7 +3,7 @@ description: 'Create tag'
 inputs:
   tag-message:
     description: 'Tag message'
-    default: 'New version v%s\n\n Log changes: \n\n%s'
+    default: 'New version v%s\n\nLog changes: \n\n%s'
   new-version:
     description: 'New version'
     required: true

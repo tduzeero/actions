@@ -38,29 +38,6 @@ if [[ $VERSION_FROM == "git" && $COMMIT_LIST != "" ]]; then
 
   done
   IFS="$OLDIFS"
-
-  PUBLISHED_VERSION=$(npm info get version --silent)
-
-  if [[ $PUBLISHED_VERSION != "" ]]; then
-
-    echo "PUBLISHED_VERSION: ${PUBLISHED_VERSION}" >&2
-
-    PUBLISHED_VERSION_MAJOR=$(echo $PUBLISHED_VERSION | cut -d'.' -f 1)
-    PUBLISHED_VERSION_MINOR=$(echo $PUBLISHED_VERSION | cut -d'.' -f 2)
-    PUBLISHED_VERSION_PATCH=$(echo $PUBLISHED_VERSION | cut -d'.' -f 3)
-
-    if [[ $PUBLISHED_VERSION_MAJOR -gt $MAJOR || $PUBLISHED_VERSION_MAJOR -eq $MAJOR ]]; then
-      MAJOR=$(($PUBLISHED_VERSION_MAJOR + 1))
-      MINOR=0
-      PATCH=0
-    elif [[ $PUBLISHED_VERSION_MINOR -gt $MINOR || $PUBLISHED_VERSION_MINOR -eq $MINOR ]]; then
-      MINOR=$(($PUBLISHED_VERSION_MINOR + 1))
-      PATCH=0
-    elif [[ $PUBLISHED_VERSION_PATCH -gt $PATCH || $PUBLISHED_VERSION_PATCH -eq $PATCH ]]; then
-      PATCH=$(($PUBLISHED_VERSION_PATCH + 1))
-    fi
-
-  fi
 fi
 
 
