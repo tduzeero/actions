@@ -9,35 +9,44 @@ MAJOR=$(echo $CURRENT_VERSION | cut -d'.' -f 1)
 MINOR=$(echo $CURRENT_VERSION | cut -d'.' -f 2)
 PATCH=$(echo $CURRENT_VERSION | cut -d'.' -f 3)
 
-if [[ $VERSION_FROM == "git" && $COMMIT_LIST != "" ]]; then
+if [[ $VERSION_FROM == "git" ]]; then
 
-  OLDIFS="$IFS"
-  IFS=$'\n'
-  for COMMIT in ${COMMIT_LIST//$COMMIT_LIST_SEP/$'\n'}; do
-    COMMIT_SHA=${COMMIT:0:7}
-    DESCRIPTION=''
+  if [[ $COMMIT_LIST != "" ]]; then 
 
-    if [[ $(git rev-parse --symbolic-full-name $sha) = refs/* ]]; then
-      DESCRIPTION=$(git show -s --format=%B $COMMIT_SHA)
-    fi
+    OLDIFS="$IFS"
+    IFS=$'\n'
+    for COMMIT in ${COMMIT_LIST//$COMMIT_LIST_SEP/$'\n'}; do
+      COMMIT_SHA=${COMMIT:0:7}
+      DESCRIPTION=''
 
-    if [[ "$COMMIT" == *"!:"* || "$DESCRIPTION" == *"BREAKING CHANGE:"* ]]; then
-      MAJOR=$(($MAJOR + 1))
-      MINOR=0
-      PATCH=0
-      continue
-    fi
+      if [[ $(git rev-parse --symbolic-full-name $sha) = refs/* ]]; then
+        DESCRIPTION=$(git show -s --format=%B $COMMIT_SHA)
+      fi
 
-    if [[ "$COMMIT" == *"feat:"* ]]; then
-      MINOR=$(($MINOR + 1))
-      PATCH=0
-      continue
-    fi
+      if [[ "$COMMIT" == *"!:"* || "$DESCRIPTION" == *"BREAKING CHANGE:"* ]]; then
+        MAJOR=$(($MAJOR + 1))
+        MINOR=0
+        PATCH=0
+        continue
+      fi
+
+      if [[ "$COMMIT" == *"feat:"* ]]; then
+        MINOR=$(($MINOR + 1))
+        PATCH=0
+        continue
+      fi
+
+      PATCH=$(($PATCH + 1))
+
+    done
+    IFS="$OLDIFS"
+
+  else 
 
     PATCH=$(($PATCH + 1))
+    
+  fi
 
-  done
-  IFS="$OLDIFS"
 fi
 
 
