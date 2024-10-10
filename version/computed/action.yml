@@ -37,7 +37,7 @@ runs:
         registry-url: 'https://registry.npmjs.org'
     - name: Get computed version
       id: get-computed-version 
-      run: echo "computed-version=$(get-computed-version.sh "$VERSION_FROM" "$CURRENT_VERSION" "$COMMIT_LIST" "$COMMIT_LIST_SEP" "$PACKAGE_NAME")" >> $GITHUB_OUTPUT
+      run: echo "computed-version=$(get-computed-version.sh "$VERSION_FROM" "$CURRENT_VERSION" "$COMMIT_LIST" "$COMMIT_LIST_SEP")" >> $GITHUB_OUTPUT
       shell: bash
       env:
         CURRENT_VERSION: ${{ inputs.current-version }}
