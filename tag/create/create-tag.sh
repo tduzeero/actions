@@ -8,5 +8,8 @@ COMMIT_MESSAGE=$(printf "${TAG_MESSAGE}" "${NEW_VERSION}" "${COMMIT_LIST//$COMMI
 
 echo "COMMIT_MESSAGE: ${NEW_VERSION}" >&2
 
+git push origin :v${VERSION}
+git tag -d v${VERSION}
+
 git tag -a "v${NEW_VERSION}" -m "${MESSAGE}"
 git push origin tag "v${NEW_VERSION}"
