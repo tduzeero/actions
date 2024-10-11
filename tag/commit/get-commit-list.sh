@@ -16,4 +16,4 @@ for COMMIT in ${COMMIT_LIST}; do
 done
 IFS="$OLDIFS"
 
-echo "${COMMIT_LIST//$'\n'/$COMMIT_LIST_SEP}"
+echo "${COMMIT_LIST//$'\n'//$COMMIT_LIST_SEP}"
