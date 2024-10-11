@@ -1,6 +1,8 @@
 name: 'Current version'
 description: 'Current version'
 inputs:
+  package-name: 
+    description: 'The package name'
   default-version:
     description: 'Default version. Default value for version-from[git | current]'
     required: true
@@ -27,8 +29,9 @@ runs:
 
     - name: Get current version
       id: get-current-version 
-      run: echo "current-version=$(get-current-version.sh "$VERSION_FROM" "$DEFAULT_VERSION")" >> $GITHUB_OUTPUT
+      run: echo "current-version=$(get-current-version.sh "$VERSION_FROM" "$DEFAULT_VERSION" "$PACKAGE_NAME")" >> $GITHUB_OUTPUT
       shell: bash
       env:
         DEFAULT_VERSION: ${{ inputs.default-version }}
         VERSION_FROM: ${{ inputs.version-from }}
+        PACKAGE_NAME: ${{ inputs.package-name }}
